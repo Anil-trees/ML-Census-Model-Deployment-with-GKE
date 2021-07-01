@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: census-config
+data:
+  config.yaml: |
+    model_path: gs://test_fai_data/model_deployment/model.pkl
+    users: gs://test_fai_data/model_deployment/users.json
+    secret: gs://test_fai_data/model_deployment/secret.txt
+    prediction_decoding: gs://test_fai_data/model_deployment/prediction_decoding.json
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-census
+  labels:
+    app: census
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: census
+  template:
+    metadata:
+      labels:
+        app: census
+    spec:
+      volumes:
+      - name: configuration
+        configMap:
+          name: census-config
+      containers:
+      - name: census-app
+        image: gcr.io/dsstream-sandbox/model_deployment:latest
+        command: ["python", "model_deployment.py"]
+        ports:
+        - containerPort: 5090
+        volumeMounts:
+        - name: configuration
+          mountPath: /configuration
+          readOnly: True
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ml-census-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: census
+  ports:
+    - port: 90
+      targetPort: 5090
+
