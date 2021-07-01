@@ -1,1 +1,2 @@
-*.configuration
+*.nc
+*.DS_store
