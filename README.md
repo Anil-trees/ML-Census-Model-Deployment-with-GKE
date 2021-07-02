@@ -1,3 +1,6 @@
 # ML-Census-Model-Deployment-with-GKE
 
-1. Copy and paste files in the configuration directory to your gcs bucket.
+1. Using the Cloud Shell or AI Notebook terminal, you can run the following command lines to build the final image:
+   $ cd ml-census
+3. 
+4. Copy and paste files in the configuration directory to your gcs bucket.
