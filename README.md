@@ -1,3 +1,3 @@
 # ML-Census-Model-Deployment-with-GKE
 
-Files in the configuration directory should be copied to gcs bucket.
+1. Copy and paste files in the configuration directory to your gcs bucket.
