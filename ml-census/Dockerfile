@@ -7,6 +7,6 @@ COPY . /app
 WORKDIR /app
 
 # Install dependencies from requirements.txt
-COPY ./requirements.txt /app/requirements.txt
+COPY ./ml-census/requirements.txt /app/requirements.txt
 RUN pip install --upgrade pip && pip install -r requirements.txt --no-cache-dir
 
